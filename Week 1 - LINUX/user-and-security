@@ -1,0 +1,81 @@
+# User & Security Management
+
+Linux is a **multi-user operating system**, meaning multiple users can access the system simultaneously.  
+Security in Linux is enforced through **users, groups, ownership, and permissions**, ensuring controlled and secure access to system resources.
+
+---
+
+## 1.1 Creating Users and Granting Sudo Access
+
+### Concept
+
+- The **root user** has unrestricted access to the system and can perform any operation.
+- Direct root usage is risky because accidental commands can damage the system.
+- `sudo` (Superuser Do) provides **controlled privilege escalation**, allowing trusted users to execute administrative commands safely.
+- Linux follows the **principle of least privilege**, where users are given only the permissions they need.
+- Using `sudo` also improves **auditing**, as administrative actions are logged per user.
+
+---
+
+### Commands
+
+```bash
+sudo adduser username
+sudo usermod -aG sudo username
+
+
+
+## 1.2 File Ownership (chown)
+
+
+Concept
+
+Every file has:
+
+Owner
+
+Group
+
+Others
+
+Commands
+sudo chown user filename
+sudo chown :group filename
+sudo chown user:group filename
+
+1.3 File Permissions (chmod)
+Permission Values
+Permission	Value
+Read (r)	4
+Write (w)	2
+Execute (x)	1
+Octal Mode (Most Common)
+chmod 755 file
+
+
+Meaning:
+
+Owner → rwx
+
+Group → r-x
+
+Others → r-x
+
+Key Concept
+
+Execute permission on a directory allows entering it
+
+1.4 Can Two Users Have Different Permissions on the Same File?
+Answer
+
+Yes.
+
+Linux controls access using:
+
+Ownership
+
+Group membership
+
+Permission bits
+
+This allows different users to interact with the same file differently.
