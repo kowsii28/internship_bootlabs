@@ -62,7 +62,7 @@ Each user can have their own crontab.
 
 - Alert when usage exceeds threshold
 
-**Cron ensures:**
+### Cron ensures:
 
         - No manual intervention
 
@@ -71,13 +71,83 @@ Each user can have their own crontab.
 
 ## 5.3 systemd Services
 
-**Why systemd**
 
-- Run programs at boot
+### What is systemd?
 
-- Manage background services
+`systemd` is the **system and service manager** used in modern Linux distributions.
 
-- Auto-restart & logging
+It is responsible for:
+- Starting services during system boot
+- Managing background processes (daemons)
+- Restarting failed services
+- Handling service dependencies
+- Logging service activity
+
+
+### What is a systemd Service?
+
+A **systemd service** is a program that:
+- Runs in the background
+- Can start automatically at system boot (if enabled)
+- Does not depend on user login
+
+**Common examples:**
+- Web servers (nginx, apache)
+- Monitoring scripts
+- Database services
+
+---
+
+## 5.3 Why `systemctl daemon-reload` is Required
+
+### Command
+
+```
+
+sudo systemctl daemon-reload
+
+```
+
+#### What This Command Does (`systemctl daemon-reload`)
+
+This command tells **systemd** to:
+
+- Re-read all service files
+- Update its internal configuration
+- Refresh systemd’s in-memory view of service definitions
+
+---
+
+#### When You MUST Run `daemon-reload`
+
+You must run this command when:
+
+- You create a **new service file**
+- You modify an **existing service file**
+- You change service configurations under:
+
+```
+
+/etc/systemd/system/
+
+```
+
+- systemd loads service definitions into memory
+
+- It does not automatically re-read service files when they are edited
+
+- daemon-reload forces systemd to refresh its configuration
+
+  
+#### What Happens If You Don’t Run It?
+
+- systemd will not detect your changes
+
+- The service may fail to start
+
+- Old configurations may still be used
+
+
 
 **Steps**
 
