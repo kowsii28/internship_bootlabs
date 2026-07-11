@@ -74,11 +74,9 @@ du -sh *
 - Prevents system crash when RAM is exhausted
 
 **Types**
-   - Swap partition
-   -  A **swap partition** is a dedicated disk partition reserved exclusively for swap memory.
+   - Swap partition: A **swap partition** is a dedicated disk partition reserved exclusively for swap memory.
 
-   - Swap file
-   - - A **swap file** is a regular file inside an existing filesystem that is configured to act as swap.
+   - Swap file:  A **swap file** is a regular file inside an existing filesystem that is configured to act as swap.
 
 **Creating Swap File**
 
