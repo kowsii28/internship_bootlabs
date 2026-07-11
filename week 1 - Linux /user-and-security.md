@@ -80,6 +80,12 @@ sudo chown username:groupname filename
 > **Execute (x)** – run file or access directory
 
 
+### Octal Mode
+
+- Used to **set all permissions at once**.
+- Short and commonly used in shell scripts.
+
+  
 #### Permission Values (Octal Representation)
 
 - Permission	Value
@@ -90,6 +96,18 @@ sudo chown username:groupname filename
 | Write (w)  | 2     |
 | Execute (x)| 1     |
 
+### Calculation
+
+| Number | Calculation | Permission |
+|---------|-------------|------------|
+| 7 | 4 + 2 + 1 | `rwx` |
+| 6 | 4 + 2 | `rw-` |
+| 5 | 4 + 1 | `r-x` |
+| 4 | 4 | `r--` |
+| 3 | 2 + 1 | `-wx` |
+| 2 | 2 | `-w-` |
+| 1 | 1 | `--x` |
+| 0 | 0 | `---` |
 
 - Permissions are assigned as a 3-digit number:
 
@@ -115,6 +133,91 @@ chmod 755 filename
 - chmod u+rwx filename
 - chmod g+rx filename
 - chmod o-r filename
+
+# Linux `chmod` – Symbolic vs Octal Permissions
+
+## Symbolic Method
+
+Instead of numbers, the **symbolic method** specifies:
+
+- **Who** the permission applies to
+- **What operation** to perform
+- **Which permission** to change
+
+### Syntax
+
+```bash
+chmod [who][operator][permission] <filename>
+```
+
+## 1. Who (Permission Target)
+
+| Symbol | Meaning |
+|--------|---------|
+| `u` | User (Owner) |
+| `g` | Group |
+| `o` | Others |
+| `a` | All (User + Group + Others) |
+
+---
+
+## 2. Operators
+
+| Symbol | Meaning |
+|--------|---------|
+| `+` | Add permission |
+| `-` | Remove permission |
+| `=` | Set exactly the specified permissions (replaces existing permissions) |
+
+---
+
+## 3. Permissions
+
+| Symbol | Meaning |
+|--------|---------|
+| `r` | Read |
+| `w` | Write |
+| `x` | Execute |
+
+---
+
+
+# Symbolic Equivalent of Common Octal Permissions
+
+| Octal | Permissions | Symbolic Command |
+|--------|-------------|------------------|
+| `777` | `rwxrwxrwx` | `chmod u=rwx,g=rwx,o=rwx file` |
+| `755` | `rwxr-xr-x` | `chmod u=rwx,g=rx,o=rx file` |
+| `700` | `rwx------` | `chmod u=rwx,g=,o= file` |
+| `644` | `rw-r--r--` | `chmod u=rw,g=r,o=r file` |
+| `600` | `rw-------` | `chmod u=rw,g=,o= file` |
+
+---
+
+# Easy Memory Trick
+
+| Symbol | Remember As |
+|--------|-------------|
+| `u` | User (Owner) |
+| `g` | Group |
+| `o` | Others |
+| `a` | All |
+| `+` | Add permission |
+| `-` | Remove permission |
+| `=` | Set exact permissions |
+
+### Summary
+
+```text
+chmod u+x file     → Add execute permission to owner
+
+chmod g-w file     → Remove write permission from group
+
+chmod o=r file     → Set others to read only
+
+chmod u=rwx,g=rx,o=rx file
+                  → Equivalent to chmod 755 file
+```
 
 - Linux permissions provide fine-grained access control. During my internship, I used chmod and chown to manage secure file access between users and services.
 
